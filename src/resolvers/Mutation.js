@@ -11,10 +11,13 @@ function createAuthor(parent, args, context, info) {
     return context.prisma.createAuthor( {fullname: args.fullname})
 }
 
-
+function deleteBook(parent, args, context, info) {
+    return context.prisma.deleteBook({id: args.id})
+}
 
 
 module.exports = {
     createBook,
     createAuthor,
+    deleteBook,
 }
