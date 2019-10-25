@@ -1,0 +1,39 @@
+type User {
+    id: ID!
+    email: String!
+    password: String!
+    samples: [Sample!]!
+}
+
+type Sample {
+    id: ID!
+    book: Book!
+}
+
+type Book {
+    id: ID!
+    isbn: String
+    title: String!
+    authorsBook: [Author!]
+}
+
+type Author {
+    id:ID! 
+    fullname: String!
+    books: [Book!]
+}
+
+
+
+
+type Query {
+    books : [Book!]
+    authors: [Author!]
+    book(id: ID!): Book
+    author(id: ID!): Author
+}
+
+type Mutation {
+    createBook(isbn: String, title: String!, authors: [ID!]) : Book
+    createAuthor(fullname: String!): Author
+}
