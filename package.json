@@ -1,0 +1,13 @@
+{
+  "name": "Le-Bouquiniste",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Bilb/Le-Bouquiniste.git",
+  "author": "Audric Ackermann <audric.ackermann@smile.fr>",
+  "license": "MIT",
+  "dependencies": {
+    "graphql-yoga": "^1.18.3",
+    "prisma-client": "^0.0.0",
+    "prisma-client-lib": "^1.34.10"
+  }
+}
