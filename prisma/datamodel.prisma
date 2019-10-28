@@ -1,25 +1,15 @@
- type Book {
-     id: ID! @id
-     isbn: String
-     title: String!
-     authors: [Author!]!
-}
-
-
 type User {
     id: ID! @id
     email: String! @unique
+    fullname: String!
     password: String!
     samples: [Sample!]!
 }
 
 type Sample {
     id: ID! @id
-    book: Book!
+    isbn: String! @unique
+    title: String!
+    author: String
 }
 
-
-type Author {
-    id:ID! @id
-    fullname: String!
-}

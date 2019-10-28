@@ -16,8 +16,6 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
 export type Maybe<T> = T | undefined | null;
 
 export interface Exists {
-  author: (where?: AuthorWhereInput) => Promise<boolean>;
-  book: (where?: BookWhereInput) => Promise<boolean>;
   sample: (where?: SampleWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
 }
@@ -41,44 +39,6 @@ export interface Prisma {
    * Queries
    */
 
-  author: (where: AuthorWhereUniqueInput) => AuthorNullablePromise;
-  authors: (args?: {
-    where?: AuthorWhereInput;
-    orderBy?: AuthorOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => FragmentableArray<Author>;
-  authorsConnection: (args?: {
-    where?: AuthorWhereInput;
-    orderBy?: AuthorOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => AuthorConnectionPromise;
-  book: (where: BookWhereUniqueInput) => BookNullablePromise;
-  books: (args?: {
-    where?: BookWhereInput;
-    orderBy?: BookOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => FragmentableArray<Book>;
-  booksConnection: (args?: {
-    where?: BookWhereInput;
-    orderBy?: BookOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => BookConnectionPromise;
   sample: (where: SampleWhereUniqueInput) => SampleNullablePromise;
   samples: (args?: {
     where?: SampleWhereInput;
@@ -123,43 +83,15 @@ export interface Prisma {
    * Mutations
    */
 
-  createAuthor: (data: AuthorCreateInput) => AuthorPromise;
-  updateAuthor: (args: {
-    data: AuthorUpdateInput;
-    where: AuthorWhereUniqueInput;
-  }) => AuthorPromise;
-  updateManyAuthors: (args: {
-    data: AuthorUpdateManyMutationInput;
-    where?: AuthorWhereInput;
-  }) => BatchPayloadPromise;
-  upsertAuthor: (args: {
-    where: AuthorWhereUniqueInput;
-    create: AuthorCreateInput;
-    update: AuthorUpdateInput;
-  }) => AuthorPromise;
-  deleteAuthor: (where: AuthorWhereUniqueInput) => AuthorPromise;
-  deleteManyAuthors: (where?: AuthorWhereInput) => BatchPayloadPromise;
-  createBook: (data: BookCreateInput) => BookPromise;
-  updateBook: (args: {
-    data: BookUpdateInput;
-    where: BookWhereUniqueInput;
-  }) => BookPromise;
-  updateManyBooks: (args: {
-    data: BookUpdateManyMutationInput;
-    where?: BookWhereInput;
-  }) => BatchPayloadPromise;
-  upsertBook: (args: {
-    where: BookWhereUniqueInput;
-    create: BookCreateInput;
-    update: BookUpdateInput;
-  }) => BookPromise;
-  deleteBook: (where: BookWhereUniqueInput) => BookPromise;
-  deleteManyBooks: (where?: BookWhereInput) => BatchPayloadPromise;
   createSample: (data: SampleCreateInput) => SamplePromise;
   updateSample: (args: {
     data: SampleUpdateInput;
     where: SampleWhereUniqueInput;
   }) => SamplePromise;
+  updateManySamples: (args: {
+    data: SampleUpdateManyMutationInput;
+    where?: SampleWhereInput;
+  }) => BatchPayloadPromise;
   upsertSample: (args: {
     where: SampleWhereUniqueInput;
     create: SampleCreateInput;
@@ -192,12 +124,6 @@ export interface Prisma {
 }
 
 export interface Subscription {
-  author: (
-    where?: AuthorSubscriptionWhereInput
-  ) => AuthorSubscriptionPayloadSubscription;
-  book: (
-    where?: BookSubscriptionWhereInput
-  ) => BookSubscriptionPayloadSubscription;
   sample: (
     where?: SampleSubscriptionWhereInput
   ) => SampleSubscriptionPayloadSubscription;
@@ -214,75 +140,34 @@ export interface ClientConstructor<T> {
  * Types
  */
 
-export type AuthorOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "fullname_ASC"
-  | "fullname_DESC";
-
-export type BookOrderByInput =
+export type SampleOrderByInput =
   | "id_ASC"
   | "id_DESC"
   | "isbn_ASC"
   | "isbn_DESC"
   | "title_ASC"
-  | "title_DESC";
-
-export type SampleOrderByInput = "id_ASC" | "id_DESC";
+  | "title_DESC"
+  | "author_ASC"
+  | "author_DESC";
 
 export type UserOrderByInput =
   | "id_ASC"
   | "id_DESC"
   | "email_ASC"
   | "email_DESC"
+  | "fullname_ASC"
+  | "fullname_DESC"
   | "password_ASC"
   | "password_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export type AuthorWhereUniqueInput = AtLeastOne<{
+export type SampleWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
+  isbn?: Maybe<String>;
 }>;
 
-export interface AuthorWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  fullname?: Maybe<String>;
-  fullname_not?: Maybe<String>;
-  fullname_in?: Maybe<String[] | String>;
-  fullname_not_in?: Maybe<String[] | String>;
-  fullname_lt?: Maybe<String>;
-  fullname_lte?: Maybe<String>;
-  fullname_gt?: Maybe<String>;
-  fullname_gte?: Maybe<String>;
-  fullname_contains?: Maybe<String>;
-  fullname_not_contains?: Maybe<String>;
-  fullname_starts_with?: Maybe<String>;
-  fullname_not_starts_with?: Maybe<String>;
-  fullname_ends_with?: Maybe<String>;
-  fullname_not_ends_with?: Maybe<String>;
-  AND?: Maybe<AuthorWhereInput[] | AuthorWhereInput>;
-  OR?: Maybe<AuthorWhereInput[] | AuthorWhereInput>;
-  NOT?: Maybe<AuthorWhereInput[] | AuthorWhereInput>;
-}
-
-export type BookWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export interface BookWhereInput {
+export interface SampleWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -325,34 +210,20 @@ export interface BookWhereInput {
   title_not_starts_with?: Maybe<String>;
   title_ends_with?: Maybe<String>;
   title_not_ends_with?: Maybe<String>;
-  authors_every?: Maybe<AuthorWhereInput>;
-  authors_some?: Maybe<AuthorWhereInput>;
-  authors_none?: Maybe<AuthorWhereInput>;
-  AND?: Maybe<BookWhereInput[] | BookWhereInput>;
-  OR?: Maybe<BookWhereInput[] | BookWhereInput>;
-  NOT?: Maybe<BookWhereInput[] | BookWhereInput>;
-}
-
-export type SampleWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export interface SampleWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  book?: Maybe<BookWhereInput>;
+  author?: Maybe<String>;
+  author_not?: Maybe<String>;
+  author_in?: Maybe<String[] | String>;
+  author_not_in?: Maybe<String[] | String>;
+  author_lt?: Maybe<String>;
+  author_lte?: Maybe<String>;
+  author_gt?: Maybe<String>;
+  author_gte?: Maybe<String>;
+  author_contains?: Maybe<String>;
+  author_not_contains?: Maybe<String>;
+  author_starts_with?: Maybe<String>;
+  author_not_starts_with?: Maybe<String>;
+  author_ends_with?: Maybe<String>;
+  author_not_ends_with?: Maybe<String>;
   AND?: Maybe<SampleWhereInput[] | SampleWhereInput>;
   OR?: Maybe<SampleWhereInput[] | SampleWhereInput>;
   NOT?: Maybe<SampleWhereInput[] | SampleWhereInput>;
@@ -392,6 +263,20 @@ export interface UserWhereInput {
   email_not_starts_with?: Maybe<String>;
   email_ends_with?: Maybe<String>;
   email_not_ends_with?: Maybe<String>;
+  fullname?: Maybe<String>;
+  fullname_not?: Maybe<String>;
+  fullname_in?: Maybe<String[] | String>;
+  fullname_not_in?: Maybe<String[] | String>;
+  fullname_lt?: Maybe<String>;
+  fullname_lte?: Maybe<String>;
+  fullname_gt?: Maybe<String>;
+  fullname_gte?: Maybe<String>;
+  fullname_contains?: Maybe<String>;
+  fullname_not_contains?: Maybe<String>;
+  fullname_starts_with?: Maybe<String>;
+  fullname_not_starts_with?: Maybe<String>;
+  fullname_ends_with?: Maybe<String>;
+  fullname_not_ends_with?: Maybe<String>;
   password?: Maybe<String>;
   password_not?: Maybe<String>;
   password_in?: Maybe<String[] | String>;
@@ -414,156 +299,29 @@ export interface UserWhereInput {
   NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
 }
 
-export interface AuthorCreateInput {
-  id?: Maybe<ID_Input>;
-  fullname: String;
-}
-
-export interface AuthorUpdateInput {
-  fullname?: Maybe<String>;
-}
-
-export interface AuthorUpdateManyMutationInput {
-  fullname?: Maybe<String>;
-}
-
-export interface BookCreateInput {
-  id?: Maybe<ID_Input>;
-  isbn?: Maybe<String>;
-  title: String;
-  authors?: Maybe<AuthorCreateManyInput>;
-}
-
-export interface AuthorCreateManyInput {
-  create?: Maybe<AuthorCreateInput[] | AuthorCreateInput>;
-  connect?: Maybe<AuthorWhereUniqueInput[] | AuthorWhereUniqueInput>;
-}
-
-export interface BookUpdateInput {
-  isbn?: Maybe<String>;
-  title?: Maybe<String>;
-  authors?: Maybe<AuthorUpdateManyInput>;
-}
-
-export interface AuthorUpdateManyInput {
-  create?: Maybe<AuthorCreateInput[] | AuthorCreateInput>;
-  update?: Maybe<
-    | AuthorUpdateWithWhereUniqueNestedInput[]
-    | AuthorUpdateWithWhereUniqueNestedInput
-  >;
-  upsert?: Maybe<
-    | AuthorUpsertWithWhereUniqueNestedInput[]
-    | AuthorUpsertWithWhereUniqueNestedInput
-  >;
-  delete?: Maybe<AuthorWhereUniqueInput[] | AuthorWhereUniqueInput>;
-  connect?: Maybe<AuthorWhereUniqueInput[] | AuthorWhereUniqueInput>;
-  set?: Maybe<AuthorWhereUniqueInput[] | AuthorWhereUniqueInput>;
-  disconnect?: Maybe<AuthorWhereUniqueInput[] | AuthorWhereUniqueInput>;
-  deleteMany?: Maybe<AuthorScalarWhereInput[] | AuthorScalarWhereInput>;
-  updateMany?: Maybe<
-    | AuthorUpdateManyWithWhereNestedInput[]
-    | AuthorUpdateManyWithWhereNestedInput
-  >;
-}
-
-export interface AuthorUpdateWithWhereUniqueNestedInput {
-  where: AuthorWhereUniqueInput;
-  data: AuthorUpdateDataInput;
-}
-
-export interface AuthorUpdateDataInput {
-  fullname?: Maybe<String>;
-}
-
-export interface AuthorUpsertWithWhereUniqueNestedInput {
-  where: AuthorWhereUniqueInput;
-  update: AuthorUpdateDataInput;
-  create: AuthorCreateInput;
-}
-
-export interface AuthorScalarWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  fullname?: Maybe<String>;
-  fullname_not?: Maybe<String>;
-  fullname_in?: Maybe<String[] | String>;
-  fullname_not_in?: Maybe<String[] | String>;
-  fullname_lt?: Maybe<String>;
-  fullname_lte?: Maybe<String>;
-  fullname_gt?: Maybe<String>;
-  fullname_gte?: Maybe<String>;
-  fullname_contains?: Maybe<String>;
-  fullname_not_contains?: Maybe<String>;
-  fullname_starts_with?: Maybe<String>;
-  fullname_not_starts_with?: Maybe<String>;
-  fullname_ends_with?: Maybe<String>;
-  fullname_not_ends_with?: Maybe<String>;
-  AND?: Maybe<AuthorScalarWhereInput[] | AuthorScalarWhereInput>;
-  OR?: Maybe<AuthorScalarWhereInput[] | AuthorScalarWhereInput>;
-  NOT?: Maybe<AuthorScalarWhereInput[] | AuthorScalarWhereInput>;
-}
-
-export interface AuthorUpdateManyWithWhereNestedInput {
-  where: AuthorScalarWhereInput;
-  data: AuthorUpdateManyDataInput;
-}
-
-export interface AuthorUpdateManyDataInput {
-  fullname?: Maybe<String>;
-}
-
-export interface BookUpdateManyMutationInput {
-  isbn?: Maybe<String>;
-  title?: Maybe<String>;
-}
-
 export interface SampleCreateInput {
   id?: Maybe<ID_Input>;
-  book: BookCreateOneInput;
-}
-
-export interface BookCreateOneInput {
-  create?: Maybe<BookCreateInput>;
-  connect?: Maybe<BookWhereUniqueInput>;
+  isbn: String;
+  title: String;
+  author?: Maybe<String>;
 }
 
 export interface SampleUpdateInput {
-  book?: Maybe<BookUpdateOneRequiredInput>;
-}
-
-export interface BookUpdateOneRequiredInput {
-  create?: Maybe<BookCreateInput>;
-  update?: Maybe<BookUpdateDataInput>;
-  upsert?: Maybe<BookUpsertNestedInput>;
-  connect?: Maybe<BookWhereUniqueInput>;
-}
-
-export interface BookUpdateDataInput {
   isbn?: Maybe<String>;
   title?: Maybe<String>;
-  authors?: Maybe<AuthorUpdateManyInput>;
+  author?: Maybe<String>;
 }
 
-export interface BookUpsertNestedInput {
-  update: BookUpdateDataInput;
-  create: BookCreateInput;
+export interface SampleUpdateManyMutationInput {
+  isbn?: Maybe<String>;
+  title?: Maybe<String>;
+  author?: Maybe<String>;
 }
 
 export interface UserCreateInput {
   id?: Maybe<ID_Input>;
   email: String;
+  fullname: String;
   password: String;
   samples?: Maybe<SampleCreateManyInput>;
 }
@@ -575,6 +333,7 @@ export interface SampleCreateManyInput {
 
 export interface UserUpdateInput {
   email?: Maybe<String>;
+  fullname?: Maybe<String>;
   password?: Maybe<String>;
   samples?: Maybe<SampleUpdateManyInput>;
 }
@@ -594,6 +353,10 @@ export interface SampleUpdateManyInput {
   set?: Maybe<SampleWhereUniqueInput[] | SampleWhereUniqueInput>;
   disconnect?: Maybe<SampleWhereUniqueInput[] | SampleWhereUniqueInput>;
   deleteMany?: Maybe<SampleScalarWhereInput[] | SampleScalarWhereInput>;
+  updateMany?: Maybe<
+    | SampleUpdateManyWithWhereNestedInput[]
+    | SampleUpdateManyWithWhereNestedInput
+  >;
 }
 
 export interface SampleUpdateWithWhereUniqueNestedInput {
@@ -602,7 +365,9 @@ export interface SampleUpdateWithWhereUniqueNestedInput {
 }
 
 export interface SampleUpdateDataInput {
-  book?: Maybe<BookUpdateOneRequiredInput>;
+  isbn?: Maybe<String>;
+  title?: Maybe<String>;
+  author?: Maybe<String>;
 }
 
 export interface SampleUpsertWithWhereUniqueNestedInput {
@@ -626,36 +391,68 @@ export interface SampleScalarWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
+  isbn?: Maybe<String>;
+  isbn_not?: Maybe<String>;
+  isbn_in?: Maybe<String[] | String>;
+  isbn_not_in?: Maybe<String[] | String>;
+  isbn_lt?: Maybe<String>;
+  isbn_lte?: Maybe<String>;
+  isbn_gt?: Maybe<String>;
+  isbn_gte?: Maybe<String>;
+  isbn_contains?: Maybe<String>;
+  isbn_not_contains?: Maybe<String>;
+  isbn_starts_with?: Maybe<String>;
+  isbn_not_starts_with?: Maybe<String>;
+  isbn_ends_with?: Maybe<String>;
+  isbn_not_ends_with?: Maybe<String>;
+  title?: Maybe<String>;
+  title_not?: Maybe<String>;
+  title_in?: Maybe<String[] | String>;
+  title_not_in?: Maybe<String[] | String>;
+  title_lt?: Maybe<String>;
+  title_lte?: Maybe<String>;
+  title_gt?: Maybe<String>;
+  title_gte?: Maybe<String>;
+  title_contains?: Maybe<String>;
+  title_not_contains?: Maybe<String>;
+  title_starts_with?: Maybe<String>;
+  title_not_starts_with?: Maybe<String>;
+  title_ends_with?: Maybe<String>;
+  title_not_ends_with?: Maybe<String>;
+  author?: Maybe<String>;
+  author_not?: Maybe<String>;
+  author_in?: Maybe<String[] | String>;
+  author_not_in?: Maybe<String[] | String>;
+  author_lt?: Maybe<String>;
+  author_lte?: Maybe<String>;
+  author_gt?: Maybe<String>;
+  author_gte?: Maybe<String>;
+  author_contains?: Maybe<String>;
+  author_not_contains?: Maybe<String>;
+  author_starts_with?: Maybe<String>;
+  author_not_starts_with?: Maybe<String>;
+  author_ends_with?: Maybe<String>;
+  author_not_ends_with?: Maybe<String>;
   AND?: Maybe<SampleScalarWhereInput[] | SampleScalarWhereInput>;
   OR?: Maybe<SampleScalarWhereInput[] | SampleScalarWhereInput>;
   NOT?: Maybe<SampleScalarWhereInput[] | SampleScalarWhereInput>;
 }
 
+export interface SampleUpdateManyWithWhereNestedInput {
+  where: SampleScalarWhereInput;
+  data: SampleUpdateManyDataInput;
+}
+
+export interface SampleUpdateManyDataInput {
+  isbn?: Maybe<String>;
+  title?: Maybe<String>;
+  author?: Maybe<String>;
+}
+
 export interface UserUpdateManyMutationInput {
   email?: Maybe<String>;
+  fullname?: Maybe<String>;
   password?: Maybe<String>;
-}
-
-export interface AuthorSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<AuthorWhereInput>;
-  AND?: Maybe<AuthorSubscriptionWhereInput[] | AuthorSubscriptionWhereInput>;
-  OR?: Maybe<AuthorSubscriptionWhereInput[] | AuthorSubscriptionWhereInput>;
-  NOT?: Maybe<AuthorSubscriptionWhereInput[] | AuthorSubscriptionWhereInput>;
-}
-
-export interface BookSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<BookWhereInput>;
-  AND?: Maybe<BookSubscriptionWhereInput[] | BookSubscriptionWhereInput>;
-  OR?: Maybe<BookSubscriptionWhereInput[] | BookSubscriptionWhereInput>;
-  NOT?: Maybe<BookSubscriptionWhereInput[] | BookSubscriptionWhereInput>;
 }
 
 export interface SampleSubscriptionWhereInput {
@@ -684,49 +481,57 @@ export interface NodeNode {
   id: ID_Output;
 }
 
-export interface Author {
+export interface Sample {
   id: ID_Output;
-  fullname: String;
+  isbn: String;
+  title: String;
+  author?: String;
 }
 
-export interface AuthorPromise extends Promise<Author>, Fragmentable {
+export interface SamplePromise extends Promise<Sample>, Fragmentable {
   id: () => Promise<ID_Output>;
-  fullname: () => Promise<String>;
+  isbn: () => Promise<String>;
+  title: () => Promise<String>;
+  author: () => Promise<String>;
 }
 
-export interface AuthorSubscription
-  extends Promise<AsyncIterator<Author>>,
+export interface SampleSubscription
+  extends Promise<AsyncIterator<Sample>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  fullname: () => Promise<AsyncIterator<String>>;
+  isbn: () => Promise<AsyncIterator<String>>;
+  title: () => Promise<AsyncIterator<String>>;
+  author: () => Promise<AsyncIterator<String>>;
 }
 
-export interface AuthorNullablePromise
-  extends Promise<Author | null>,
+export interface SampleNullablePromise
+  extends Promise<Sample | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  fullname: () => Promise<String>;
+  isbn: () => Promise<String>;
+  title: () => Promise<String>;
+  author: () => Promise<String>;
 }
 
-export interface AuthorConnection {
+export interface SampleConnection {
   pageInfo: PageInfo;
-  edges: AuthorEdge[];
+  edges: SampleEdge[];
 }
 
-export interface AuthorConnectionPromise
-  extends Promise<AuthorConnection>,
+export interface SampleConnectionPromise
+  extends Promise<SampleConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<AuthorEdge>>() => T;
-  aggregate: <T = AggregateAuthorPromise>() => T;
+  edges: <T = FragmentableArray<SampleEdge>>() => T;
+  aggregate: <T = AggregateSamplePromise>() => T;
 }
 
-export interface AuthorConnectionSubscription
-  extends Promise<AsyncIterator<AuthorConnection>>,
+export interface SampleConnectionSubscription
+  extends Promise<AsyncIterator<SampleConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<AuthorEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateAuthorSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<SampleEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateSampleSubscription>() => T;
 }
 
 export interface PageInfo {
@@ -750,192 +555,6 @@ export interface PageInfoSubscription
   hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
   startCursor: () => Promise<AsyncIterator<String>>;
   endCursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface AuthorEdge {
-  node: Author;
-  cursor: String;
-}
-
-export interface AuthorEdgePromise extends Promise<AuthorEdge>, Fragmentable {
-  node: <T = AuthorPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface AuthorEdgeSubscription
-  extends Promise<AsyncIterator<AuthorEdge>>,
-    Fragmentable {
-  node: <T = AuthorSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface AggregateAuthor {
-  count: Int;
-}
-
-export interface AggregateAuthorPromise
-  extends Promise<AggregateAuthor>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateAuthorSubscription
-  extends Promise<AsyncIterator<AggregateAuthor>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface Book {
-  id: ID_Output;
-  isbn?: String;
-  title: String;
-}
-
-export interface BookPromise extends Promise<Book>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  isbn: () => Promise<String>;
-  title: () => Promise<String>;
-  authors: <T = FragmentableArray<Author>>(args?: {
-    where?: AuthorWhereInput;
-    orderBy?: AuthorOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface BookSubscription
-  extends Promise<AsyncIterator<Book>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  isbn: () => Promise<AsyncIterator<String>>;
-  title: () => Promise<AsyncIterator<String>>;
-  authors: <T = Promise<AsyncIterator<AuthorSubscription>>>(args?: {
-    where?: AuthorWhereInput;
-    orderBy?: AuthorOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface BookNullablePromise
-  extends Promise<Book | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  isbn: () => Promise<String>;
-  title: () => Promise<String>;
-  authors: <T = FragmentableArray<Author>>(args?: {
-    where?: AuthorWhereInput;
-    orderBy?: AuthorOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface BookConnection {
-  pageInfo: PageInfo;
-  edges: BookEdge[];
-}
-
-export interface BookConnectionPromise
-  extends Promise<BookConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<BookEdge>>() => T;
-  aggregate: <T = AggregateBookPromise>() => T;
-}
-
-export interface BookConnectionSubscription
-  extends Promise<AsyncIterator<BookConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<BookEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateBookSubscription>() => T;
-}
-
-export interface BookEdge {
-  node: Book;
-  cursor: String;
-}
-
-export interface BookEdgePromise extends Promise<BookEdge>, Fragmentable {
-  node: <T = BookPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface BookEdgeSubscription
-  extends Promise<AsyncIterator<BookEdge>>,
-    Fragmentable {
-  node: <T = BookSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface AggregateBook {
-  count: Int;
-}
-
-export interface AggregateBookPromise
-  extends Promise<AggregateBook>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateBookSubscription
-  extends Promise<AsyncIterator<AggregateBook>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface Sample {
-  id: ID_Output;
-}
-
-export interface SamplePromise extends Promise<Sample>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  book: <T = BookPromise>() => T;
-}
-
-export interface SampleSubscription
-  extends Promise<AsyncIterator<Sample>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  book: <T = BookSubscription>() => T;
-}
-
-export interface SampleNullablePromise
-  extends Promise<Sample | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  book: <T = BookPromise>() => T;
-}
-
-export interface SampleConnection {
-  pageInfo: PageInfo;
-  edges: SampleEdge[];
-}
-
-export interface SampleConnectionPromise
-  extends Promise<SampleConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<SampleEdge>>() => T;
-  aggregate: <T = AggregateSamplePromise>() => T;
-}
-
-export interface SampleConnectionSubscription
-  extends Promise<AsyncIterator<SampleConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<SampleEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateSampleSubscription>() => T;
 }
 
 export interface SampleEdge {
@@ -974,12 +593,14 @@ export interface AggregateSampleSubscription
 export interface User {
   id: ID_Output;
   email: String;
+  fullname: String;
   password: String;
 }
 
 export interface UserPromise extends Promise<User>, Fragmentable {
   id: () => Promise<ID_Output>;
   email: () => Promise<String>;
+  fullname: () => Promise<String>;
   password: () => Promise<String>;
   samples: <T = FragmentableArray<Sample>>(args?: {
     where?: SampleWhereInput;
@@ -997,6 +618,7 @@ export interface UserSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   email: () => Promise<AsyncIterator<String>>;
+  fullname: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
   samples: <T = Promise<AsyncIterator<SampleSubscription>>>(args?: {
     where?: SampleWhereInput;
@@ -1014,6 +636,7 @@ export interface UserNullablePromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   email: () => Promise<String>;
+  fullname: () => Promise<String>;
   password: () => Promise<String>;
   samples: <T = FragmentableArray<Sample>>(args?: {
     where?: SampleWhereInput;
@@ -1096,97 +719,6 @@ export interface BatchPayloadSubscription
   count: () => Promise<AsyncIterator<Long>>;
 }
 
-export interface AuthorSubscriptionPayload {
-  mutation: MutationType;
-  node: Author;
-  updatedFields: String[];
-  previousValues: AuthorPreviousValues;
-}
-
-export interface AuthorSubscriptionPayloadPromise
-  extends Promise<AuthorSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = AuthorPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = AuthorPreviousValuesPromise>() => T;
-}
-
-export interface AuthorSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<AuthorSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = AuthorSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = AuthorPreviousValuesSubscription>() => T;
-}
-
-export interface AuthorPreviousValues {
-  id: ID_Output;
-  fullname: String;
-}
-
-export interface AuthorPreviousValuesPromise
-  extends Promise<AuthorPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  fullname: () => Promise<String>;
-}
-
-export interface AuthorPreviousValuesSubscription
-  extends Promise<AsyncIterator<AuthorPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  fullname: () => Promise<AsyncIterator<String>>;
-}
-
-export interface BookSubscriptionPayload {
-  mutation: MutationType;
-  node: Book;
-  updatedFields: String[];
-  previousValues: BookPreviousValues;
-}
-
-export interface BookSubscriptionPayloadPromise
-  extends Promise<BookSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = BookPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = BookPreviousValuesPromise>() => T;
-}
-
-export interface BookSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<BookSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = BookSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = BookPreviousValuesSubscription>() => T;
-}
-
-export interface BookPreviousValues {
-  id: ID_Output;
-  isbn?: String;
-  title: String;
-}
-
-export interface BookPreviousValuesPromise
-  extends Promise<BookPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  isbn: () => Promise<String>;
-  title: () => Promise<String>;
-}
-
-export interface BookPreviousValuesSubscription
-  extends Promise<AsyncIterator<BookPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  isbn: () => Promise<AsyncIterator<String>>;
-  title: () => Promise<AsyncIterator<String>>;
-}
-
 export interface SampleSubscriptionPayload {
   mutation: MutationType;
   node: Sample;
@@ -1214,18 +746,27 @@ export interface SampleSubscriptionPayloadSubscription
 
 export interface SamplePreviousValues {
   id: ID_Output;
+  isbn: String;
+  title: String;
+  author?: String;
 }
 
 export interface SamplePreviousValuesPromise
   extends Promise<SamplePreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  isbn: () => Promise<String>;
+  title: () => Promise<String>;
+  author: () => Promise<String>;
 }
 
 export interface SamplePreviousValuesSubscription
   extends Promise<AsyncIterator<SamplePreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  isbn: () => Promise<AsyncIterator<String>>;
+  title: () => Promise<AsyncIterator<String>>;
+  author: () => Promise<AsyncIterator<String>>;
 }
 
 export interface UserSubscriptionPayload {
@@ -1256,6 +797,7 @@ export interface UserSubscriptionPayloadSubscription
 export interface UserPreviousValues {
   id: ID_Output;
   email: String;
+  fullname: String;
   password: String;
 }
 
@@ -1264,6 +806,7 @@ export interface UserPreviousValuesPromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   email: () => Promise<String>;
+  fullname: () => Promise<String>;
   password: () => Promise<String>;
 }
 
@@ -1272,6 +815,7 @@ export interface UserPreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   email: () => Promise<AsyncIterator<String>>;
+  fullname: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
 }
 
@@ -1304,19 +848,11 @@ export type Long = string;
 
 export const models: Model[] = [
   {
-    name: "Book",
-    embedded: false
-  },
-  {
     name: "User",
     embedded: false
   },
   {
     name: "Sample",
-    embedded: false
-  },
-  {
-    name: "Author",
     embedded: false
   }
 ];

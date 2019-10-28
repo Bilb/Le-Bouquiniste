@@ -1,25 +1,32 @@
 
-function books(parent, args, context, info) {
-    return context.prisma.books()
+function samples(parent, args, context, info) {
+    const where = args.filter ? { title: args.filter} : {}
+
+    const samples = context.prisma.samples({
+        where,
+        skip: args.skip,
+        first: args.first,
+        orderBy: args.orderBy})
+
+    const count = context.prisma.samplesConnection({where})
+        .aggregate()
+        .count()
+
+    return { 
+        samples,
+        count,
+    }
+    return 
 }
 
-function authors(parent, args, context, info) {
-    return context.prisma.authors()
+async function sample(parent, args, context, info) {
+    return await context.prisma.sample({id: args.id})
 }
 
-async function book(parent, args, context, info) {
-    return await context.prisma.book({id: args.id})
-}
-
-async function author(parent, args, context, info) {
-    return await context.prisma.author({id: args.id})
-}
 
 
 
 module.exports = {
-    books,
-    authors,
-    book,
-    author
+    sample,
+    samples,
 }

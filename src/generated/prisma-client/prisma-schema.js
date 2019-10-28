@@ -3,15 +3,7 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregateAuthor {
-  count: Int!
-}
-
-type AggregateBook {
-  count: Int!
-}
-
-type AggregateSample {
+/* GraphQL */ `type AggregateSample {
   count: Int!
 }
 
@@ -19,275 +11,103 @@ type AggregateUser {
   count: Int!
 }
 
-type Author {
-  id: ID!
-  fullname: String!
-}
-
-type AuthorConnection {
-  pageInfo: PageInfo!
-  edges: [AuthorEdge]!
-  aggregate: AggregateAuthor!
-}
-
-input AuthorCreateInput {
-  id: ID
-  fullname: String!
-}
-
-input AuthorCreateManyInput {
-  create: [AuthorCreateInput!]
-  connect: [AuthorWhereUniqueInput!]
-}
-
-type AuthorEdge {
-  node: Author!
-  cursor: String!
-}
-
-enum AuthorOrderByInput {
-  id_ASC
-  id_DESC
-  fullname_ASC
-  fullname_DESC
-}
-
-type AuthorPreviousValues {
-  id: ID!
-  fullname: String!
-}
-
-input AuthorScalarWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  fullname: String
-  fullname_not: String
-  fullname_in: [String!]
-  fullname_not_in: [String!]
-  fullname_lt: String
-  fullname_lte: String
-  fullname_gt: String
-  fullname_gte: String
-  fullname_contains: String
-  fullname_not_contains: String
-  fullname_starts_with: String
-  fullname_not_starts_with: String
-  fullname_ends_with: String
-  fullname_not_ends_with: String
-  AND: [AuthorScalarWhereInput!]
-  OR: [AuthorScalarWhereInput!]
-  NOT: [AuthorScalarWhereInput!]
-}
-
-type AuthorSubscriptionPayload {
-  mutation: MutationType!
-  node: Author
-  updatedFields: [String!]
-  previousValues: AuthorPreviousValues
-}
-
-input AuthorSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: AuthorWhereInput
-  AND: [AuthorSubscriptionWhereInput!]
-  OR: [AuthorSubscriptionWhereInput!]
-  NOT: [AuthorSubscriptionWhereInput!]
-}
-
-input AuthorUpdateDataInput {
-  fullname: String
-}
-
-input AuthorUpdateInput {
-  fullname: String
-}
-
-input AuthorUpdateManyDataInput {
-  fullname: String
-}
-
-input AuthorUpdateManyInput {
-  create: [AuthorCreateInput!]
-  update: [AuthorUpdateWithWhereUniqueNestedInput!]
-  upsert: [AuthorUpsertWithWhereUniqueNestedInput!]
-  delete: [AuthorWhereUniqueInput!]
-  connect: [AuthorWhereUniqueInput!]
-  set: [AuthorWhereUniqueInput!]
-  disconnect: [AuthorWhereUniqueInput!]
-  deleteMany: [AuthorScalarWhereInput!]
-  updateMany: [AuthorUpdateManyWithWhereNestedInput!]
-}
-
-input AuthorUpdateManyMutationInput {
-  fullname: String
-}
-
-input AuthorUpdateManyWithWhereNestedInput {
-  where: AuthorScalarWhereInput!
-  data: AuthorUpdateManyDataInput!
-}
-
-input AuthorUpdateWithWhereUniqueNestedInput {
-  where: AuthorWhereUniqueInput!
-  data: AuthorUpdateDataInput!
-}
-
-input AuthorUpsertWithWhereUniqueNestedInput {
-  where: AuthorWhereUniqueInput!
-  update: AuthorUpdateDataInput!
-  create: AuthorCreateInput!
-}
-
-input AuthorWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  fullname: String
-  fullname_not: String
-  fullname_in: [String!]
-  fullname_not_in: [String!]
-  fullname_lt: String
-  fullname_lte: String
-  fullname_gt: String
-  fullname_gte: String
-  fullname_contains: String
-  fullname_not_contains: String
-  fullname_starts_with: String
-  fullname_not_starts_with: String
-  fullname_ends_with: String
-  fullname_not_ends_with: String
-  AND: [AuthorWhereInput!]
-  OR: [AuthorWhereInput!]
-  NOT: [AuthorWhereInput!]
-}
-
-input AuthorWhereUniqueInput {
-  id: ID
-}
-
 type BatchPayload {
   count: Long!
 }
 
-type Book {
+scalar Long
+
+type Mutation {
+  createSample(data: SampleCreateInput!): Sample!
+  updateSample(data: SampleUpdateInput!, where: SampleWhereUniqueInput!): Sample
+  updateManySamples(data: SampleUpdateManyMutationInput!, where: SampleWhereInput): BatchPayload!
+  upsertSample(where: SampleWhereUniqueInput!, create: SampleCreateInput!, update: SampleUpdateInput!): Sample!
+  deleteSample(where: SampleWhereUniqueInput!): Sample
+  deleteManySamples(where: SampleWhereInput): BatchPayload!
+  createUser(data: UserCreateInput!): User!
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  deleteUser(where: UserWhereUniqueInput!): User
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+interface Node {
   id: ID!
-  isbn: String
-  title: String!
-  authors(where: AuthorWhereInput, orderBy: AuthorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Author!]
 }
 
-type BookConnection {
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type Query {
+  sample(where: SampleWhereUniqueInput!): Sample
+  samples(where: SampleWhereInput, orderBy: SampleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Sample]!
+  samplesConnection(where: SampleWhereInput, orderBy: SampleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SampleConnection!
+  user(where: UserWhereUniqueInput!): User
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  node(id: ID!): Node
+}
+
+type Sample {
+  id: ID!
+  isbn: String!
+  title: String!
+  author: String
+}
+
+type SampleConnection {
   pageInfo: PageInfo!
-  edges: [BookEdge]!
-  aggregate: AggregateBook!
+  edges: [SampleEdge]!
+  aggregate: AggregateSample!
 }
 
-input BookCreateInput {
+input SampleCreateInput {
   id: ID
-  isbn: String
+  isbn: String!
   title: String!
-  authors: AuthorCreateManyInput
+  author: String
 }
 
-input BookCreateOneInput {
-  create: BookCreateInput
-  connect: BookWhereUniqueInput
+input SampleCreateManyInput {
+  create: [SampleCreateInput!]
+  connect: [SampleWhereUniqueInput!]
 }
 
-type BookEdge {
-  node: Book!
+type SampleEdge {
+  node: Sample!
   cursor: String!
 }
 
-enum BookOrderByInput {
+enum SampleOrderByInput {
   id_ASC
   id_DESC
   isbn_ASC
   isbn_DESC
   title_ASC
   title_DESC
+  author_ASC
+  author_DESC
 }
 
-type BookPreviousValues {
+type SamplePreviousValues {
   id: ID!
-  isbn: String
+  isbn: String!
   title: String!
+  author: String
 }
 
-type BookSubscriptionPayload {
-  mutation: MutationType!
-  node: Book
-  updatedFields: [String!]
-  previousValues: BookPreviousValues
-}
-
-input BookSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: BookWhereInput
-  AND: [BookSubscriptionWhereInput!]
-  OR: [BookSubscriptionWhereInput!]
-  NOT: [BookSubscriptionWhereInput!]
-}
-
-input BookUpdateDataInput {
-  isbn: String
-  title: String
-  authors: AuthorUpdateManyInput
-}
-
-input BookUpdateInput {
-  isbn: String
-  title: String
-  authors: AuthorUpdateManyInput
-}
-
-input BookUpdateManyMutationInput {
-  isbn: String
-  title: String
-}
-
-input BookUpdateOneRequiredInput {
-  create: BookCreateInput
-  update: BookUpdateDataInput
-  upsert: BookUpsertNestedInput
-  connect: BookWhereUniqueInput
-}
-
-input BookUpsertNestedInput {
-  update: BookUpdateDataInput!
-  create: BookCreateInput!
-}
-
-input BookWhereInput {
+input SampleScalarWhereInput {
   id: ID
   id_not: ID
   id_in: [ID!]
@@ -330,129 +150,20 @@ input BookWhereInput {
   title_not_starts_with: String
   title_ends_with: String
   title_not_ends_with: String
-  authors_every: AuthorWhereInput
-  authors_some: AuthorWhereInput
-  authors_none: AuthorWhereInput
-  AND: [BookWhereInput!]
-  OR: [BookWhereInput!]
-  NOT: [BookWhereInput!]
-}
-
-input BookWhereUniqueInput {
-  id: ID
-}
-
-scalar Long
-
-type Mutation {
-  createAuthor(data: AuthorCreateInput!): Author!
-  updateAuthor(data: AuthorUpdateInput!, where: AuthorWhereUniqueInput!): Author
-  updateManyAuthors(data: AuthorUpdateManyMutationInput!, where: AuthorWhereInput): BatchPayload!
-  upsertAuthor(where: AuthorWhereUniqueInput!, create: AuthorCreateInput!, update: AuthorUpdateInput!): Author!
-  deleteAuthor(where: AuthorWhereUniqueInput!): Author
-  deleteManyAuthors(where: AuthorWhereInput): BatchPayload!
-  createBook(data: BookCreateInput!): Book!
-  updateBook(data: BookUpdateInput!, where: BookWhereUniqueInput!): Book
-  updateManyBooks(data: BookUpdateManyMutationInput!, where: BookWhereInput): BatchPayload!
-  upsertBook(where: BookWhereUniqueInput!, create: BookCreateInput!, update: BookUpdateInput!): Book!
-  deleteBook(where: BookWhereUniqueInput!): Book
-  deleteManyBooks(where: BookWhereInput): BatchPayload!
-  createSample(data: SampleCreateInput!): Sample!
-  updateSample(data: SampleUpdateInput!, where: SampleWhereUniqueInput!): Sample
-  upsertSample(where: SampleWhereUniqueInput!, create: SampleCreateInput!, update: SampleUpdateInput!): Sample!
-  deleteSample(where: SampleWhereUniqueInput!): Sample
-  deleteManySamples(where: SampleWhereInput): BatchPayload!
-  createUser(data: UserCreateInput!): User!
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  deleteUser(where: UserWhereUniqueInput!): User
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
-}
-
-enum MutationType {
-  CREATED
-  UPDATED
-  DELETED
-}
-
-interface Node {
-  id: ID!
-}
-
-type PageInfo {
-  hasNextPage: Boolean!
-  hasPreviousPage: Boolean!
-  startCursor: String
-  endCursor: String
-}
-
-type Query {
-  author(where: AuthorWhereUniqueInput!): Author
-  authors(where: AuthorWhereInput, orderBy: AuthorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Author]!
-  authorsConnection(where: AuthorWhereInput, orderBy: AuthorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AuthorConnection!
-  book(where: BookWhereUniqueInput!): Book
-  books(where: BookWhereInput, orderBy: BookOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Book]!
-  booksConnection(where: BookWhereInput, orderBy: BookOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BookConnection!
-  sample(where: SampleWhereUniqueInput!): Sample
-  samples(where: SampleWhereInput, orderBy: SampleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Sample]!
-  samplesConnection(where: SampleWhereInput, orderBy: SampleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SampleConnection!
-  user(where: UserWhereUniqueInput!): User
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
-  node(id: ID!): Node
-}
-
-type Sample {
-  id: ID!
-  book: Book!
-}
-
-type SampleConnection {
-  pageInfo: PageInfo!
-  edges: [SampleEdge]!
-  aggregate: AggregateSample!
-}
-
-input SampleCreateInput {
-  id: ID
-  book: BookCreateOneInput!
-}
-
-input SampleCreateManyInput {
-  create: [SampleCreateInput!]
-  connect: [SampleWhereUniqueInput!]
-}
-
-type SampleEdge {
-  node: Sample!
-  cursor: String!
-}
-
-enum SampleOrderByInput {
-  id_ASC
-  id_DESC
-}
-
-type SamplePreviousValues {
-  id: ID!
-}
-
-input SampleScalarWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
+  author: String
+  author_not: String
+  author_in: [String!]
+  author_not_in: [String!]
+  author_lt: String
+  author_lte: String
+  author_gt: String
+  author_gte: String
+  author_contains: String
+  author_not_contains: String
+  author_starts_with: String
+  author_not_starts_with: String
+  author_ends_with: String
+  author_not_ends_with: String
   AND: [SampleScalarWhereInput!]
   OR: [SampleScalarWhereInput!]
   NOT: [SampleScalarWhereInput!]
@@ -477,11 +188,21 @@ input SampleSubscriptionWhereInput {
 }
 
 input SampleUpdateDataInput {
-  book: BookUpdateOneRequiredInput
+  isbn: String
+  title: String
+  author: String
 }
 
 input SampleUpdateInput {
-  book: BookUpdateOneRequiredInput
+  isbn: String
+  title: String
+  author: String
+}
+
+input SampleUpdateManyDataInput {
+  isbn: String
+  title: String
+  author: String
 }
 
 input SampleUpdateManyInput {
@@ -493,6 +214,18 @@ input SampleUpdateManyInput {
   set: [SampleWhereUniqueInput!]
   disconnect: [SampleWhereUniqueInput!]
   deleteMany: [SampleScalarWhereInput!]
+  updateMany: [SampleUpdateManyWithWhereNestedInput!]
+}
+
+input SampleUpdateManyMutationInput {
+  isbn: String
+  title: String
+  author: String
+}
+
+input SampleUpdateManyWithWhereNestedInput {
+  where: SampleScalarWhereInput!
+  data: SampleUpdateManyDataInput!
 }
 
 input SampleUpdateWithWhereUniqueNestedInput {
@@ -521,7 +254,48 @@ input SampleWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  book: BookWhereInput
+  isbn: String
+  isbn_not: String
+  isbn_in: [String!]
+  isbn_not_in: [String!]
+  isbn_lt: String
+  isbn_lte: String
+  isbn_gt: String
+  isbn_gte: String
+  isbn_contains: String
+  isbn_not_contains: String
+  isbn_starts_with: String
+  isbn_not_starts_with: String
+  isbn_ends_with: String
+  isbn_not_ends_with: String
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  author: String
+  author_not: String
+  author_in: [String!]
+  author_not_in: [String!]
+  author_lt: String
+  author_lte: String
+  author_gt: String
+  author_gte: String
+  author_contains: String
+  author_not_contains: String
+  author_starts_with: String
+  author_not_starts_with: String
+  author_ends_with: String
+  author_not_ends_with: String
   AND: [SampleWhereInput!]
   OR: [SampleWhereInput!]
   NOT: [SampleWhereInput!]
@@ -529,11 +303,10 @@ input SampleWhereInput {
 
 input SampleWhereUniqueInput {
   id: ID
+  isbn: String
 }
 
 type Subscription {
-  author(where: AuthorSubscriptionWhereInput): AuthorSubscriptionPayload
-  book(where: BookSubscriptionWhereInput): BookSubscriptionPayload
   sample(where: SampleSubscriptionWhereInput): SampleSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
@@ -541,6 +314,7 @@ type Subscription {
 type User {
   id: ID!
   email: String!
+  fullname: String!
   password: String!
   samples(where: SampleWhereInput, orderBy: SampleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Sample!]
 }
@@ -554,6 +328,7 @@ type UserConnection {
 input UserCreateInput {
   id: ID
   email: String!
+  fullname: String!
   password: String!
   samples: SampleCreateManyInput
 }
@@ -568,6 +343,8 @@ enum UserOrderByInput {
   id_DESC
   email_ASC
   email_DESC
+  fullname_ASC
+  fullname_DESC
   password_ASC
   password_DESC
 }
@@ -575,6 +352,7 @@ enum UserOrderByInput {
 type UserPreviousValues {
   id: ID!
   email: String!
+  fullname: String!
   password: String!
 }
 
@@ -598,12 +376,14 @@ input UserSubscriptionWhereInput {
 
 input UserUpdateInput {
   email: String
+  fullname: String
   password: String
   samples: SampleUpdateManyInput
 }
 
 input UserUpdateManyMutationInput {
   email: String
+  fullname: String
   password: String
 }
 
@@ -636,6 +416,20 @@ input UserWhereInput {
   email_not_starts_with: String
   email_ends_with: String
   email_not_ends_with: String
+  fullname: String
+  fullname_not: String
+  fullname_in: [String!]
+  fullname_not_in: [String!]
+  fullname_lt: String
+  fullname_lte: String
+  fullname_gt: String
+  fullname_gte: String
+  fullname_contains: String
+  fullname_not_contains: String
+  fullname_starts_with: String
+  fullname_not_starts_with: String
+  fullname_ends_with: String
+  fullname_not_ends_with: String
   password: String
   password_not: String
   password_in: [String!]

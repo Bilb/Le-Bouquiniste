@@ -1,41 +1,38 @@
 type User {
     id: ID!
     email: String!
+    fullname: String!
     password: String!
     samples: [Sample!]!
 }
 
 type Sample {
     id: ID!
-    book: Book!
-}
-
-type Book {
-    id: ID!
-    isbn: String
+    isbn: String!
     title: String!
-    authorsBook: [Author!]
+    author: String
 }
 
-type Author {
-    id:ID! 
-    fullname: String!
-    books: [Book!]
-}
 
+
+type SampleResult {
+    samples: [Sample!]
+    count: Int!
+}
 
 
 
 type Query {
-    books : [Book!]
-    authors: [Author!]
-    book(id: ID!): Book
-    author(id: ID!): Author
+    me : User
+    samples(filter:String, skip:Int, first:Int) : SampleResult!
+    sample(id: ID!): Sample
 }
 
-type Mutation {
-    createBook(isbn: String, title: String!, authors: [ID!]) : Book
-    createAuthor(fullname: String!): Author
 
-    deleteBook(id:ID!) : Book
+type Mutation {
+    # create a sample
+    createSample(isbn: String, title: String!, author:String!) : Sample
+    # Update the sample of a user
+    updateSample(id: ID!, isbn: String, title: String, author:String): Sample
+    deleteSample(id:ID!) : Sample
 }
