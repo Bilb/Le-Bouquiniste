@@ -8,7 +8,7 @@ type User {
 
 type Sample {
     id: ID! @id
-    isbn: String! @unique
+    isbn: String!
     title: String!
     author: String
 }

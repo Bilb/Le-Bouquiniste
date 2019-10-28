@@ -164,7 +164,6 @@ export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
 export type SampleWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
-  isbn?: Maybe<String>;
 }>;
 
 export interface SampleWhereInput {

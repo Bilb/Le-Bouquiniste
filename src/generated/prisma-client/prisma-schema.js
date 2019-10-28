@@ -303,7 +303,6 @@ input SampleWhereInput {
 
 input SampleWhereUniqueInput {
   id: ID
-  isbn: String
 }
 
 type Subscription {

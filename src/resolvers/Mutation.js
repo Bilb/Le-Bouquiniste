@@ -26,31 +26,24 @@ function deleteSample(parent, args, context, info) {
 }
 
 async function updateSample(parent, args, context, info) {
-    const book = await context.prisma.book({id: args.id})
-    if (!book) {
-        throw new Error('No such book found with id', args.id)
+    const sample = await context.prisma.sample({id: args.id})
+    if (!sample) {
+        throw new Error('No such sample found with id', args.id)
     }
     data = {}
     if(args.isbn) {
-        data.isbn = isbn
+        data.isbn = args.isbn
     }
 
     if(args.title) {
-        data.title = title
+        data.title = args.title
     }
 
-    const currentAuthors = await context.prisma.book({id: args.id}).authors()
-
-    if(args.authors) {
-        console.log("current authors: ", currentAuthors)
-        console.log("new authors: ", args.authors)
-
-        data.authors = {
-            connect: args.authors.map(p => ({id: p}))
-        }
+    if(args.author) {
+        data.author = args.author
     }
-    console.log('updating book to : ', data, data.authors)
-    return context.prisma.updateBook({
+
+    return context.prisma.updateSample({
        where: {id: args.id},
        data
     })
